@@ -1,0 +1,23 @@
+.app {
+  padding: 20px;
+  width: 200px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+
+.button{
+  text-align: center;
+  margin-top: 20px;
+}
