@@ -1,4 +1,4 @@
-# 搜索引擎快捷导航
+# 一个基于webpack + react的chrome 插件
 
 参考文章
 
