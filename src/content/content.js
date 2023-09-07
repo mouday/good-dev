@@ -12,10 +12,12 @@ console.log("content.js");
 
 var globalId = randomString();
 
+let key = `${window.location.hostname}-value`;
+
 async function showDataId() {
   console.log("showDataId");
 
-  const value = (await storage.get("data-id")) || "data-id";
+  const value = (await storage.get(key)) || "data-id";
 
   console.log(value);
 
