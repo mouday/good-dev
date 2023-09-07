@@ -11,6 +11,7 @@ import { eventConst } from "../consts.js";
 function App() {
   const [checked, setChecked] = React.useState(false);
   const [currentHost, setCurrentHost] = React.useState(false);
+  const [currentValue, setCurrentValue] = React.useState("");
 
   const onChange = (value) => {
     setChecked(value);
@@ -20,6 +21,16 @@ function App() {
     } else {
       event.emitContent({ action: "hideDataId" });
     }
+
+    let key = `${currentHost}-status`;
+    event.emitBackground({
+      action: eventConst.setCurrentContentStatus,
+
+      data: {
+        key,
+        value,
+      },
+    });
   };
 
   const onClick = async () => {
@@ -45,9 +56,21 @@ function App() {
 
     console.log(res);
 
+    let key = `${res.currentContentHost}-value`;
+    const value = (await storage.get(key)) || "data-id";
+    setCurrentValue(value);
     setCurrentHost(res.currentContentHost);
 
-    const value = await storage.get(res.currentContentHost);
+    let statusKey = `${res.currentContentHost}-status`;
+    const statusRes = await event.emitBackground({
+      action: eventConst.getCurrentContentStatus,
+
+      data: {
+        key: statusKey,
+      },
+    });
+
+    setChecked(statusRes.value);
   }
 
   React.useEffect(() => {
@@ -59,6 +82,8 @@ function App() {
       <div className="title">GoodDev</div>
 
       <div style={{ marginTop: "20px" }}>当前host: {currentHost}</div>
+
+      <div style={{ marginTop: "20px" }}>当前属性: {currentValue}</div>
 
       <div className="action">
         <span>隐藏属性</span>

@@ -21,11 +21,12 @@ async function showDataId() {
 
   for (let element of [...document.querySelectorAll(`[${value}]`)]) {
     console.log(element.offsetTop, element.offsetLeft);
-    element.style.position = "relative";
-    element.style.border = "2px solid red";
+
     let attr = element.getAttribute(value);
 
     let position = getRelativePosition(element);
+    let wrapper = document.createElement("div");
+    wrapper.style.position = "relative";
 
     let div = document.createElement("div");
     div.setAttribute("data-xid", globalId);
@@ -44,16 +45,18 @@ async function showDataId() {
     div.style.backgroundColor = "#1e80ff";
     div.style.color = "#fff";
     div.style.opacity = "0.6";
+    div.style.textWrap = "nowrap";
 
     div.addEventListener("click", function (e) {
       e.preventDefault();
-      
+
       copyText(attr);
       div.innerHTML = value + ": " + attr + " copyed!";
       // alert("已复制到剪切板");
     });
 
-    element.appendChild(div);
+    wrapper.appendChild(div);
+    element.insertBefore(wrapper, element.firstChild);
   }
 }
 
@@ -93,5 +96,3 @@ const actions = {
     data: { currentContentHost: window.location.hostname },
   });
 })();
-
-const but2 = $('<button id="cj_but2">向background发送消息</button>');

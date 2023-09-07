@@ -7,15 +7,15 @@
   "browser_action": {
     "default_icon": "icon.png",
     "default_title": "GoodDev",
-    "default_popup": "popup/popup.html"
+    "default_popup": "dist/popup/popup.html"
   },
 
-  "options_page": "options/options.html",
+  "options_page": "dist/options/options.html",
 
   "permissions": ["tabs", "activeTab", "storage"],
 
   "background": {
-    "scripts": ["libs/browser-polyfill.min.js", "background/background.js"]
+    "scripts": ["libs/webextension-polyfill.min.js", "dist/background/background.js"]
   },
 
   "content_scripts": [
@@ -24,8 +24,8 @@
       "run_at": "document_idle",
       "js": [
         "libs/jquery/jquery.min.js",
-        "libs/browser-polyfill.min.js",
-        "content/content.js"
+        "libs/webextension-polyfill.min.js",
+        "dist/content/content.js"
       ]
     }
   ],

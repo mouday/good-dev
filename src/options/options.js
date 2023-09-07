@@ -34,14 +34,10 @@ function App() {
 
   const onFinish = async (values) => {
     console.log(values);
-    await storage.set({ "data-id": values.value });
+    let key = `${currentHost}-value`;
+    await storage.set({ [key]: values.value });
 
     message.success("配置已保存");
-  };
-
-  const onClick = () => {
-    const background = chrome.extension.getBackgroundPage();
-    background.onMessage({ data: "hello" });
   };
 
   async function initData() {
@@ -51,11 +47,6 @@ function App() {
       const { action, data } = message;
     });
 
-    const data = await storage.get();
-
-    console.log(data);
-    form.setFieldsValue({ value: data });
-
     const res = await event.emitBackground({
       action: eventConst.getCurrentContentHost,
       data: {},
@@ -64,6 +55,11 @@ function App() {
     console.log(res);
 
     setCurrentHost(res.currentContentHost);
+    let key = `${res.currentContentHost}-value`;
+    const value = (await storage.get(key)) || "data-id";
+
+    console.log(value);
+    form.setFieldsValue({ value: value });
   }
 
   React.useEffect(() => {

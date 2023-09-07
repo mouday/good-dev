@@ -9,6 +9,9 @@ console.log("background.js");
 // 当前content域名
 let currentContentHost = null;
 
+// 全局状态
+let statusData = {};
+
 // 安装或更新
 chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason == "install") {
@@ -42,12 +45,9 @@ chrome.runtime.onSuspend.addListener(function () {
 });
 
 // 卸载
-chrome.runtime.setUninstallURL(
-  "https://your_website.com/uninstall",
-  function () {
-    console.log("Uninstall URL has been set");
-  }
-);
+chrome.runtime.setUninstallURL("https://www.baidu.com/", function () {
+  console.log("Uninstall URL has been set");
+});
 
 // 浏览器关闭事件
 chrome.windows.onRemoved.addListener(function (windowId) {
@@ -70,11 +70,11 @@ chrome.windows.onRemoved.addListener(function (windowId) {
 
 // 切换标签页事件
 chrome.tabs.onActivated.addListener(function (activeInfo) {
-    console.log(activeInfo);
-    //   console.log("hostname", window.location.hostname);
-    console.log("Tab with id " + activeInfo.tabId + " is now active.");
+  console.log(activeInfo);
+  //   console.log("hostname", window.location.hostname);
+  console.log("Tab with id " + activeInfo.tabId + " is now active.");
 
-// event.emit({ action: "tabChange" });
+  // event.emit({ action: "tabChange" });
   event.emitContent({ action: eventConst.tabChange });
 });
 
@@ -101,6 +101,13 @@ async function onMessage(message) {
 
   if (action == "getCurrentContentHost") {
     return { currentContentHost };
+  } else if (action == eventConst.setCurrentContentStatus) {
+    statusData[data.key] = data.value;
+  } else if (action == eventConst.getCurrentContentStatus) {
+    return {
+      key: data.key,
+      value: statusData[data.key],
+    };
   }
 }
 

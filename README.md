@@ -1,5 +1,7 @@
 # 一个基于webpack + react的chrome 插件
 
+v3版本问题比较多，暂时使用v2版本
+
 参考文章
 
 1. [chrome插件入门及如何利用react进行开发](https://zhuanlan.zhihu.com/p/367251799)
@@ -42,3 +44,10 @@ https://mp.weixin.qq.com/s/q5TaoNkW2aeDyHV9BQxqhg
 
 谷歌浏览器插件content_scripts、background、popup之间的通信
 https://blog.csdn.net/guoqiankunmiss/article/details/110652076
+
+2023新春版：React+Antd开发Chrome插件教程（Manifest V3）
+https://www.zhihu.com/tardis/bd/art/603827042
+
+
+Chrome Extension Manifest v2升v3初体验
+https://zhuanlan.zhihu.com/p/546973802

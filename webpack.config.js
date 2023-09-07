@@ -17,7 +17,7 @@ module.exports = {
 
   // 指定输出地址及打包出来的文件名
   output: {
-    path: path.join(__dirname, "dist"),
+    path: path.join(__dirname, "public/dist"),
     filename: "[name]/[name].js",
     // clean: true,
   },
@@ -51,7 +51,7 @@ module.exports = {
       patterns: [
         { from: "src/popup/popup.html", to: "popup/popup.html" },
         { from: "src/options/options.html", to: "options/options.html" },
-        { from: "public" },
+        // { from: "public" },
       ],
     }),
   ],
